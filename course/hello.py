@@ -1,3 +1,2 @@
 print("Welcome to NTT Data course!!!")
-print("Hello, World!")
-
+print("Hello, NTT World!")
