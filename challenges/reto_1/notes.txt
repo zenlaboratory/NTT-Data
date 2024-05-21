@@ -1,0 +1,97 @@
+NOTAS RETO AGUA
+
+La fórmula de Haversine se utiliza en Python para calcular la distancia entre dos puntos dados su latitud y longitud. Aquí tienes un ejemplo de cómo puedes implementarla:
+
+import math
+
+def haversine(lat1, lon1, lat2, lon2):
+    R = 6371  # Radio de la Tierra en kilómetros
+
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = math.sin(dlat/2) * math.sin(dlat/2) + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2) * math.sin(dlon/2)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+    distance = R * c
+
+    return distance
+
+# Ejemplo de uso
+lat1 = 40.7128
+lon1 = -74.0060
+lat2 = 34.0522
+lon2 = -118.2437
+
+distancia = haversine(lat1, lon1, lat2, lon2)
+print(f"La distancia entre los dos puntos es: {distancia} km")
+
+Resultado: 251,19 Km
+-----------------------------------------------------------------------------------------------
+
+
+from haversine import haversine, Unit
+
+lyon = (45.7597, 4.8422) # (lat, lon)
+paris = (48.8567, 2.3508)
+
+haversine(lyon, paris)
+>> 392.2172595594006  # in kilometers
+
+haversine(lyon, paris, unit=Unit.MILES)
+>> 243.71250609539814  # in miles
+
+# you can also use the string abbreviation for units:
+haversine(lyon, paris, unit='mi')
+>> 243.71250609539814  # in miles
+
+haversine(lyon, paris, unit=Unit.NAUTICAL_MILES)
+>> 211.78037755311516  # in nautical miles
+
+Resultado: 251,19 Km
+
+-----------------------------------------------------------------------------------------------
+
+import math
+ 
+def haversine(lat1, lon1, lat2, lon2):
+    # Radio de la Tierra en kilómetros. Usamos 6371 km.
+    R = 6371.0
+    # Convertir las coordenadas de grados a radianes.
+    lat1_rad = math.radians(lat1)
+    lon1_rad = math.radians(lon1)
+    lat2_rad = math.radians(lat2)
+    lon2_rad = math.radians(lon2)
+    # Diferencias entre las coordenadas.
+    dlat = lat2_rad - lat1_rad
+    dlon = lon2_rad - lon1_rad
+    # Aplicar la fórmula de Haversine.
+    a = math.sin(dlat / 2)**2 + math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(dlon / 2)**2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    # Calcular la distancia.
+    distance = R * c
+    return distance
+ 
+def solicitar_coordenadas():
+    lat1 = float(input("Ingrese la latitud del primer punto: "))
+    lon1 = float(input("Ingrese la longitud del primer punto: "))
+    lat2 = float(input("Ingrese la latitud del segundo punto: "))
+    lon2 = float(input("Ingrese la longitud del segundo punto: "))
+    return lat1, lon1, lat2, lon2
+ 
+ 
+lat1, lon1, lat2, lon2 = solicitar_coordenadas()
+distancia = haversine(lat1, lon1, lat2, lon2)
+print(f"La distancia entre los dos puntos es: {distancia:.2f} km")
+
+--------------------------------------------------------------------------------
+
+################################## NOTAS #######################################
+
+- Consultar si se puede cambiar el color de los markers en el mapa para identificar correctamente la posición de las bombas de las que se están midiendo la distancia en el mismo.
+
+- Consultar si es posible la inclusión en el mapa de un trazo discontínuo uniendo las dos bombas que se están midiendo la distancia para mejorar la visualización del mismo..
+
+- Efectuar la validación de que el punto de origen y el punto de destino estén dentro de un rango permitido de valores  (long, lat)
+
+- Consultar si es posible agregar un texto en el mapa para que se indique la distancia entre las dos bombas.
+
+################################################################################
